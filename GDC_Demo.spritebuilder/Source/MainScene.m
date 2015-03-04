@@ -4,6 +4,9 @@
 #define CP_ALLOW_PRIVATE_ACCESS 1
 #import "CCPhysics+ObjectiveChipmunk.h"
 
+static NSString * const kFirstLevel = @"Level1";
+static NSString *selectedLevel = @"Level1";
+
 @interface MainScene() <CCPhysicsCollisionDelegate>
 
 @property (nonatomic, strong) CCNode *hero;
@@ -25,7 +28,7 @@
 - (void)didLoadFromCCB {
   self.userInteractionEnabled = YES;
   
-  self.level = (Level *) [CCBReader load:@"Level1" owner:self];
+  self.level = (Level *) [CCBReader load:selectedLevel owner:self];
   [self.physicsNode addChild:self.level];
   
   CCActionFollow *actionFollow = [CCActionFollow actionWithTarget:self.hero worldBoundary:self.level.boundingBox];
@@ -77,6 +80,24 @@
   [[CCDirector sharedDirector] presentScene:restartScene withTransition:transition];
 }
 
+#pragma mark - Level completion
+
+- (void)loadNextLevel {
+  selectedLevel = self.level.nextLevelName;
+  
+  CCScene *nextScene = nil;
+  
+  if (selectedLevel) {
+    nextScene = [CCBReader loadAsScene:@"MainScene"];
+  } else {
+    selectedLevel = kFirstLevel;
+    nextScene = [CCBReader loadAsScene:@"MainScene"];
+  }
+  
+  CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+  [[CCDirector sharedDirector] presentScene:nextScene withTransition:transition];
+}
+
 #pragma mark - Collision Handling
 
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero enemy:(CCNode *)enemy {
@@ -108,6 +129,10 @@
   if (collisionNormal.y < -0.95f) {
     _onGround = TRUE;
   }
+}
+
+-(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero goal:(CCNode *)goal {
+  [self loadNextLevel];
 }
 
 #pragma mark - Player Movement
