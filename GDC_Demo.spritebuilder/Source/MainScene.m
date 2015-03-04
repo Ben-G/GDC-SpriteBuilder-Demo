@@ -8,7 +8,6 @@
 
 @property (nonatomic, strong) CCNode *hero;
 @property (nonatomic, weak) CCPhysicsNode *physicsNode;
-@property (nonatomic, weak) CCNode *heroStartPosition;
 @property (nonatomic, weak) Level *level;
 @property (nonatomic, weak) CCNode *contentNode;
 @property (nonatomic, weak) CCLabelTTF *pointsLabel;
@@ -28,10 +27,6 @@
   
   self.level = (Level *) [CCBReader load:@"Level1" owner:self];
   [self.physicsNode addChild:self.level];
-  
-  self.hero = [CCBReader load:@"Hero"];
-  [self.physicsNode addChild:self.hero];
-  self.hero.positionInPoints = self.heroStartPosition.positionInPoints;
   
   CCActionFollow *actionFollow = [CCActionFollow actionWithTarget:self.hero worldBoundary:self.level.boundingBox];
   [self.contentNode runAction:actionFollow];
