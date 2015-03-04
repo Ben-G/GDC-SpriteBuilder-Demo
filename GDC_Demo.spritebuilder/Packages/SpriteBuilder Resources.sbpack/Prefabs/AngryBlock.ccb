@@ -50,9 +50,9 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
-			<false/>
+			<true/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -64,7 +64,7 @@
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
-			<real>0.0099999997764825821</real>
+			<real>1</real>
 			<key>dynamic</key>
 			<false/>
 			<key>elasticity</key>
@@ -82,11 +82,11 @@
 					<real>34</real>
 				</array>
 				<array>
-					<real>264</real>
+					<real>33</real>
 					<real>34</real>
 				</array>
 				<array>
-					<real>264</real>
+					<real>33</real>
 					<real>0.0</real>
 				</array>
 			</array>
@@ -94,11 +94,11 @@
 			<array>
 				<array>
 					<array>
-						<real>264</real>
+						<real>33</real>
 						<real>0.0</real>
 					</array>
 					<array>
-						<real>264</real>
+						<real>33</real>
 						<real>34</real>
 					</array>
 					<array>
@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>level_elements/angry_blocklong.png</string>
+					<string>level_elements/angry_blocksmall.png</string>
 				</array>
 			</dict>
 			<dict>

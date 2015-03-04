@@ -1,19 +1,21 @@
+#import "Level.h"
 #import "MainScene.h"
 #define CP_ALLOW_PRIVATE_ACCESS 1
 #import "CCPhysics+ObjectiveChipmunk.h"
 
-@interface MainScene()
+@interface MainScene() <CCPhysicsCollisionDelegate>
 
 @property (nonatomic, strong) CCNode *hero;
 @property (nonatomic, weak) CCPhysicsNode *physicsNode;
 @property (nonatomic, weak) CCNode *heroStartPosition;
-@property (nonatomic, weak) CCNode *level;
-
+@property (nonatomic, weak) Level *level;
+@property (nonatomic, weak) CCNode *contentNode;
+@property (nonatomic, assign) NSInteger points:
 
 @end
 
 @implementation MainScene {
-  BOOL _jumped;
+  BOOL _onGround;
   // stores three version of the scrolling background (to allow endless scrolling)
   NSArray *_backgrounds;
 }
@@ -21,7 +23,7 @@
 - (void)didLoadFromCCB {
   self.userInteractionEnabled = YES;
   
-  self.level = [CCBReader load:@"Level1" owner:self];
+  self.level = (Level *) [CCBReader load:@"Level1" owner:self];
   [self.physicsNode addChild:self.level];
   
   self.hero = [CCBReader load:@"Hero"];
@@ -29,7 +31,7 @@
   self.hero.positionInPoints = self.heroStartPosition.positionInPoints;
   
   CCActionFollow *actionFollow = [CCActionFollow actionWithTarget:self.hero worldBoundary:self.level.boundingBox];
-  [self runAction:actionFollow];
+  [self.contentNode runAction:actionFollow];
   
   // load initial background
   NSString *spriteFrameName = @"backgrounds/anger_background.png";
@@ -51,16 +53,20 @@
   [self.physicsNode addChild:bg2 z:INT_MIN];
   [self.physicsNode addChild:bg3 z:INT_MIN];
 
+  self.physicsNode.collisionDelegate = self;
+  
+//  self.physicsNode.debugDraw = YES;
+  
+  _onGround = YES;
 }
 
 #pragma mark - Touch Handling
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
   [self.hero.physicsBody.chipmunkObjects[0] eachArbiter:^(cpArbiter *arbiter) {
-    if (!_jumped) {
-      [self.hero.physicsBody applyImpulse:ccp(0, 700)];
-      _jumped = YES;
-      [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.3f];
+    if (_onGround) {
+      [self.hero.physicsBody applyImpulse:ccp(0, 900)];
+      _onGround = NO;
     }
   }];
 }
@@ -73,14 +79,42 @@
   [[CCDirector sharedDirector] presentScene:restartScene withTransition:transition];
 }
 
-#pragma mark - Physics
+#pragma mark - Collision Handling
 
-- (void)resetJump {
-  _jumped = NO;
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero enemy:(CCNode *)enemy {
+  CGPoint collisionNormal = pair.contacts.normal;
+  
+  if (collisionNormal.y < -0.9f) {
+    [[self.physicsNode space] addPostStepBlock:^{
+      [enemy removeFromParentAndCleanup:YES];
+    } key:enemy];
+  } else {
+    [self gameOver];
+  }
+  
+  return YES;
 }
 
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero mask:(CCNode *)mask {
+  [[self.physicsNode space] addPostStepBlock:^{
+    [mask removeFromParentAndCleanup:YES];
+  } key:mask];
+
+  return YES;
+}
+
+-(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero ground:(CCNode *)ground {
+  CCContactSet contactSet = pair.contacts;
+  CGPoint collisionNormal = contactSet.normal;
+  if (collisionNormal.y < -0.95f) {
+    _onGround = TRUE;
+  }
+}
+
+#pragma mark - Player Movement
+
 - (void)fixedUpdate:(CCTime)delta {
-  self.hero.physicsBody.velocity = ccp(80, self.hero.physicsBody.velocity.y);
+  self.hero.physicsBody.velocity = ccp(self.level.levelSpeed, self.hero.physicsBody.velocity.y);
   
   if (CGRectGetMaxY([self.hero boundingBox]) <   CGRectGetMinY([self.level boundingBox])) {
     [self gameOver];
