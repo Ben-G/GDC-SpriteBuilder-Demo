@@ -1,5 +1,5 @@
 //
-//  Level.h
+//  Mask.h
 //  GDC_Demo
 //
 //  Created by Benjamin Encz on 3/4/15.
@@ -8,8 +8,8 @@
 
 #import "CCNode.h"
 
-@interface Level : CCNode
+@interface Mask : CCNode
 
-@property (nonatomic, assign) NSInteger levelSpeed;
+@property (nonatomic, assign) NSInteger points;
 
 @end

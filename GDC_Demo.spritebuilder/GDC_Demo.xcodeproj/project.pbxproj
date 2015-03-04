@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B121030197484FA004C1E1D /* GDC_DemoActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B12102F197484FA004C1E1D /* GDC_DemoActivity.m */; };
 		5B121038197487F2004C1E1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B737893E1807617C0076A88C /* AppDelegate.m */; };
+		620D08BE1AA6FBFC00E3F2BB /* Mask.m in Sources */ = {isa = PBXBuildFile; fileRef = 620D08BD1AA6FBFC00E3F2BB /* Mask.m */; };
 		62A6CCEE1AA6F5B500137C73 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A6CCED1AA6F5B500137C73 /* Enemy.m */; };
 		62A6CCF51AA6F76500137C73 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A6CCF41AA6F76500137C73 /* Level.m */; };
 		7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B7378993180767190076A88C /* MainScene.m */; };
@@ -161,6 +162,8 @@
 		5B121033197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/Android/Info.plist; sourceTree = "<group>"; };
 		5B121034197485FE004C1E1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Platforms/iOS/Info.plist; sourceTree = "<group>"; };
 		5BA4619E1974C88900785744 /* AndroidManifest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AndroidManifest.xml; path = Platforms/Android/AndroidManifest.xml; sourceTree = "<group>"; };
+		620D08BC1AA6FBFC00E3F2BB /* Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mask.h; sourceTree = "<group>"; };
+		620D08BD1AA6FBFC00E3F2BB /* Mask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mask.m; sourceTree = "<group>"; };
 		62A6CCEC1AA6F5B500137C73 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		62A6CCED1AA6F5B500137C73 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		62A6CCF31AA6F76500137C73 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 				62A6CCED1AA6F5B500137C73 /* Enemy.m */,
 				62A6CCF31AA6F76500137C73 /* Level.h */,
 				62A6CCF41AA6F76500137C73 /* Level.m */,
+				620D08BC1AA6FBFC00E3F2BB /* Mask.h */,
+				620D08BD1AA6FBFC00E3F2BB /* Mask.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -829,6 +834,7 @@
 				62A6CCF51AA6F76500137C73 /* Level.m in Sources */,
 				62A6CCEE1AA6F5B500137C73 /* Enemy.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				620D08BE1AA6FBFC00E3F2BB /* Mask.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
 			);

@@ -1,4 +1,5 @@
 #import "Level.h"
+#import "Mask.h"
 #import "MainScene.h"
 #define CP_ALLOW_PRIVATE_ACCESS 1
 #import "CCPhysics+ObjectiveChipmunk.h"
@@ -10,7 +11,9 @@
 @property (nonatomic, weak) CCNode *heroStartPosition;
 @property (nonatomic, weak) Level *level;
 @property (nonatomic, weak) CCNode *contentNode;
-@property (nonatomic, assign) NSInteger points:
+@property (nonatomic, weak) CCLabelTTF *pointsLabel;
+
+@property (nonatomic, assign) NSInteger points;
 
 @end
 
@@ -95,11 +98,12 @@
   return YES;
 }
 
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero mask:(CCNode *)mask {
+-(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero mask:(Mask *)mask {
   [[self.physicsNode space] addPostStepBlock:^{
     [mask removeFromParentAndCleanup:YES];
+    self.points += mask.points;
   } key:mask];
-
+  
   return YES;
 }
 
@@ -126,6 +130,13 @@
       bg.position = ccp(bg.position.x + (bg.contentSize.width*2)-2, 0);
     }
   }
+}
+
+#pragma mark - Setter Override
+
+- (void)setPoints:(NSInteger)points {
+  _points = points;
+  self.pointsLabel.string = [NSString stringWithFormat:@"%ld", (long) self.points];
 }
 
 @end

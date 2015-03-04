@@ -131,6 +131,19 @@
 						<array/>
 						<key>customClass</key>
 						<string></string>
+						<key>customProperties</key>
+						<array>
+							<dict>
+								<key>name</key>
+								<string>points</string>
+								<key>optimized</key>
+								<false/>
+								<key>type</key>
+								<integer>0</integer>
+								<key>value</key>
+								<string>1</string>
+							</dict>
+						</array>
 						<key>displayName</key>
 						<string>CCParticleSystem</string>
 						<key>memberVarAssignmentName</key>
@@ -526,6 +539,19 @@
 		</array>
 		<key>customClass</key>
 		<string>Mask</string>
+		<key>customProperties</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>points</string>
+				<key>optimized</key>
+				<false/>
+				<key>type</key>
+				<integer>0</integer>
+				<key>value</key>
+				<string>1</string>
+			</dict>
+		</array>
 		<key>displayName</key>
 		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
@@ -545,7 +571,7 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string></string>
+			<string>mask</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
